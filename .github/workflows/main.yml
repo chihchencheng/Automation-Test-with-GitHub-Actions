@@ -22,7 +22,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.11  # 指定要安裝的 Python 版本
+        python-version: 3.10  # 指定要安裝的 Python 版本
 
     - name: Install dependencies
       run: |
@@ -33,12 +33,5 @@ jobs:
       run: |
         pytest > pytest ./test_api/test_api_login.py
          
-    # 添加 retry 配置
-    - name: Retry on failure
-      if: failure()
-      uses: actions/retry@v2
-      with:
-        max-runs: 2  # 設定最大重試次數
-        delay: 10s   # 設定重試之間的延遲
 
 
