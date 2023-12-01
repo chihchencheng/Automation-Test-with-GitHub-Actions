@@ -3,7 +3,7 @@ name: Python Tests
 on: 
   push:
     branches:
-      - main
+      - master
   pull_request:
   workflow_dispatch:
   repository_dispatch:
@@ -28,6 +28,17 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install -r requirement.txt
+
+    - name: Run tests
+      run: |
         pytest > pytest ./test_api/test_api_login.py
+         
+    # 添加 retry 配置
+    - name: Retry on failure
+      if: failure()
+      uses: actions/retry@v2
+      with:
+        max-runs: 2  # 設定最大重試次數
+        delay: 10s   # 設定重試之間的延遲
 
 
